@@ -1,4 +1,4 @@
-import constants from 'helper/constants/constants';
+import constants from 'helper/constants';
 
 /*                                                                                                    
 // Api requests are required to return an object containing
