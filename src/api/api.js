@@ -12,9 +12,9 @@ class Api {
     let status; 
 
     if (res && res.statusCode === 200) {
-      status = constants.api.success;
+      status = constants.api.status.success;
     } else {
-      status = constants.api.failure;
+      status = constants.api.status.failure;
     }
 
     callback({
@@ -35,9 +35,12 @@ class Api {
    */
   getQuestionsCollection(page, callback) {
     request
-      .get(`${this.baseUrl}/question`)
+      .get(`${this.baseUrl}/questions`)
       .set('Content-Type', 'application/json')
       .type('json')
+      .query({
+        [constants.api.parameters.page]: page,
+      })
       .end((err, res) => {
         Api.response(err, res, callback);
     });

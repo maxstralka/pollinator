@@ -5,8 +5,8 @@ import App from 'app/App';
 import registerServiceWorker from 'registerServiceWorker';
 import constants from 'helper/constants';
 
-// Init API with mock endpoint
-const api = new Api(constants.api.url.mock);
+// Init api with production endpoint
+const api = new Api(constants.api.url.production);
 
 const AppComponent = () => (
   <App
