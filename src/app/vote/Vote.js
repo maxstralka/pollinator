@@ -49,7 +49,7 @@ class Vote extends Component {
           onClick={this.handleExit}>Exit
         </button>
         <h1>{this.question || '-'}</h1>
-        <div id="choices" class="list-group">
+        <div id="choices" className="list-group">
           {choicesList}
         </div>
       </div>
