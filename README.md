@@ -20,5 +20,6 @@ npm start
 
 
 ## Notes
-Based on [Create React App](https://github.com/facebook/create-react-app)
-Uses [Jest](https://jestjs.io) and [Enzyme](https://airbnb.io/enzyme/docs/guides/jest.html) for tests and Bootstrap 4 for styling.
+- Based on [Create React App](https://github.com/facebook/create-react-app)
+- Uses [Jest](https://jestjs.io) and [Enzyme](https://airbnb.io/enzyme/docs/guides/jest.html) for tests
+- [Bootstrap 4](https://getbootstrap.com/) for styling
