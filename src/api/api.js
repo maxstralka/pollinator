@@ -2,16 +2,22 @@ import request from 'superagent';
 import constants from 'helper/constants';
 
 /**
- * Api requests are required to return an object containing
- * three properties: status, body, error - use response()
- * to create this object
+ * Api documentation (https://pollsapi.docs.apiary.io)
+ * recommends to follow 'url' values to get to resources
+ * instead of constructing URLs based on choice and question ids,
+ * to keep the client decoupled from implementation details
  */
 
+/**
+ * All api requests in class Api are required to return
+ * an object containing three properties: status, body,
+ * error - use response() to create this object
+ */
 class Api {
   static response(err, res, callback) {
     let status; 
 
-    if (res && res.statusCode === 200) {
+    if (res && (res.statusCode === 200 || res.statusCode === 201)) {
       status = constants.api.status.success;
     } else {
       status = constants.api.status.failure;
@@ -48,11 +54,11 @@ class Api {
 
   /**
    * Get details of one specific question (GET)
-   * @param {number} questionId - Id of question
+   * @param {string} url - Url to question resource
    */
-  getQuestion(questionId, callback) {
+  getQuestion(url, callback) {
     request
-      .get(`${this.baseUrl}/questions/${questionId}`)
+      .get(`${this.baseUrl}${url}`)
       .set('Content-Type', 'application/json')
       .type('json')
       .end((err, res) => {
@@ -62,18 +68,13 @@ class Api {
 
   /**
    * Vote on a choice (POST)
-   * @param {number} questionId - Id of question
-   * @param {number} choiceId - Id of choice
+   * @param {string} url - Url to choice resource
    */
-  postChoice(questionId, choiceId, callback) {
+  postChoice(url, callback) {
     request
-      .post(`${this.baseUrl}/questions/${questionId}/choices/${choiceId}`)
+      .post(`${this.baseUrl}${url}`)
       .set('Content-Type', 'application/json')
       .type('json')
-      .send({
-        [constants.api.parameters.questionId]: questionId,
-        [constants.api.parameters.choiceId]: choiceId,
-      })
       .end((err, res) => {
         Api.response(err, res, callback);
     });

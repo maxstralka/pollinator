@@ -1,0 +1,37 @@
+.question {
+  margin-bottom: 30px;
+  padding-bottom: 3vh;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  min-height: 32vh;
+}
+
+.question h2 {
+  font-weight: 100;
+  margin-top: 3vh;
+  margin-bottom: 2vh;
+  margin-left: 20%;
+  margin-right: 20%;
+  text-align: center;
+}
+
+.question p {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.question .btn-outline-secondary {
+  margin-top:2vh;
+  margin-bottom:1.3vh;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  color: rgb(33, 37, 41);
+  border-color: rgb(33, 37, 41);
+}
+
+.question .btn-outline-secondary:hover {
+  background-color: transparent;
+  color: rgb(255, 82, 82);
+  border-color: rgb(255, 82, 82);
+}

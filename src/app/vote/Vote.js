@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import constants from 'helper/constants';
+import 'app/vote/Vote.css';
 
 class Vote extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Vote extends Component {
   }
 
   handleVoteSubmit(e) {
-    this.callback(constants.action.submitVote, e.target.id);
+    this.callback(constants.action.submitVote, e.target.value);
   }
 
   handleExit() {
@@ -25,20 +26,31 @@ class Vote extends Component {
 
   render() {
     // Prepare choices list
+    const totalVotes = this.choices.reduce((acc, current) => acc + current.votes, 0);
+
     const choicesList = this.choices.map(choice =>
-      <div key={choice.url}>
-        {choice.choice}{choice.votes}{'?? %'}
+      <div className="list-group-item list-group-item-action" key={choice.url}>
+      {/*<span class="badge badge-secondary">Votes: {choice.votes}</span>*/}
+        <span className="choice">{choice.choice}</span>
+        <span className="details"> (Total: {choice.votes} |
+          Share: {((choice.votes/totalVotes)*100).toFixed(0)}%)</span>
         <button
-          id={choice.url.split('/').pop()}
+          className="btn btn-warning float-right"
+          value={choice.url}
           onClick={this.handleVoteSubmit}>Submit Vote
         </button>
       </div>) || '-';
 
     return (
-      <div>
-        <button onClick={this.handleExit}>Exit</button>
+      <div className="vote">
+        <button
+          className="btn btn-outline-secondary"
+          onClick={this.handleExit}>Exit
+        </button>
         <h1>{this.question || '-'}</h1>
-        {choicesList}
+        <div class="list-group">
+          {choicesList}
+        </div>
       </div>
     );
   }

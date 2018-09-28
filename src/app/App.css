@@ -1,0 +1,37 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 100;
+}
+
+.status-indicator{
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(255,255,255,0.4);
+}
+
+.status-indicator h3 {
+  text-align: center;
+  font-size: 14px;
+  padding-top: 3vh;
+  color: grey;
+
+}
+
+.header {
+  margin: 18vh 0 18vh 0;
+}
+
+.header h1 {
+  text-align: center;
+  font-weight: 300;
+}
+
+.header p {
+  text-align: center;
+  color: rgb(255, 82, 82);
+  font-weight: 300;
+}

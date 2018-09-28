@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'app/question/Question.css';
 
 class Question extends Component {
   constructor(props) {
@@ -30,11 +31,19 @@ class Question extends Component {
     const dayAndMonth = `${day}/${month}`;
 
     return (
-      <div>
-        <h1>{this.question || '-'}</h1>
-        <h2>{dayAndMonth || '-'}</h2>
-        <h2>Choices: {this.choices.length || '-'}</h2>
-        <button onClick={this.handleCallback}>Vote</button>
+      <div className="col-md-6 col-lg-4">
+        <div className="question text-center">
+          <h2>{this.question || '-'}</h2>
+          <p>Choices: {this.choices.length || '-'} |
+             Date: {dayAndMonth || '-'}
+          </p>
+          <div className="text-center">
+            <button
+              className="btn btn-outline-secondary"
+              onClick={this.handleCallback}>Vote
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

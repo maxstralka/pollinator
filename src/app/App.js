@@ -23,7 +23,7 @@ class App extends Component {
 
     // Bindings
     this.showVote = this.showVote.bind(this);
-    this.handleVote = this.handleVote.bind(this);
+    this.handleVoteAction = this.handleVoteAction.bind(this);
   }
 
   showVote(id) {
@@ -36,8 +36,22 @@ class App extends Component {
     });
   }
 
-  handleVote(action, selectedChoice) {
-    // Hide and reset vote component, if exit was pressed
+  // Fetch questions collection
+  fetchQuestions(callback) {
+    this.api.getQuestionsCollection(constants.initialQuestionsPage, (api) => {
+      callback(api.status, api.res.body);
+    });
+  }
+
+  // Submit selected vote
+  submitVote(voteUrl, callback) {
+    this.api.postChoice(voteUrl, (api) => {
+      callback(api.status);
+    });
+  }
+
+  // Handle action (exit / vote) by user on vote view
+  handleVoteAction(action, voteUrl) {
     if (action === constants.action.exit) {
       this.setState({
         vote: {
@@ -47,8 +61,36 @@ class App extends Component {
       });
     }
 
-    // Submit vote to api
     if (action === constants.action.submitVote) {
+      this.setState({
+        apiStatus: constants.api.status.loading,
+      });
+
+      // First submit vote, second fetch
+      // updated questions, third update state
+      this.submitVote(voteUrl, (apiStatus) => {
+        if (apiStatus === constants.api.status.success) {
+          this.fetchQuestions((apiStatus, questions) => {
+            if (apiStatus === constants.api.status.success) {
+              this.setState({
+                apiStatus: constants.api.status.success,
+                questions,
+                vote: {
+                  visible: false,
+                },
+              });
+            } else {
+              this.setState({
+                apiStatus: constants.api.status.failure,
+              });
+            }
+          });
+        } else {
+          this.setState({
+            apiStatus: constants.api.status.failure,
+          });
+        }
+      });
     }
   }
 
@@ -58,22 +100,8 @@ class App extends Component {
       apiStatus: constants.api.status.loading,
     });
 
-    // Fetch questions collection
-    this.api.getQuestionsCollection(constants.initialQuestionsPage, (api) => {
-      let questions;
-      let apiStatus;
-
-      // Handle api success / failure cases
-      if (api.status === constants.api.status.success) {
-        // Set api status to success and assign questions data
-        questions = api.res.body;
-        apiStatus = constants.api.status.success;
-      } else {
-        // Set api status to failure
-        apiStatus = constants.api.status.failure;
-      }
-
-      // Update state
+    this.fetchQuestions((apiStatus, questions) => {
+      // Update state with results
       this.setState({
         questions,
         apiStatus,
@@ -87,10 +115,15 @@ class App extends Component {
     // Prepare loading / failure indicators
     const loadingIndicator =
       (!apiStatus || apiStatus === constants.api.status.loading) ?
-      <h1>{'Loading...'}</h1> : null;
+      <div className="status-indicator">
+        <h3>{'Loading...'}</h3>
+      </div> : null;
+
     const apiFailureIndicator =
       (apiStatus === constants.api.status.failure) ?
-      <h1>{'Sorry. An error occured.'}</h1> : null;
+      <div className="status-indicator">
+        <h3>{'Sorry. An error occured.'}</h3>
+      </div> : null;
 
     // Prepare list of question components
     const questionsList = questions && !vote.visible ?
@@ -113,15 +146,24 @@ class App extends Component {
       <Vote
         question={voteContent.question}
         choices={voteContent.choices}
-        callback={this.handleVote}
+        callback={this.handleVoteAction}
       /> : null;
 
+    // Header
+    const header = !vote.visible ? <div className="header">
+      <h1>The Pollinator</h1>
+      <p>It's voting time</p>
+    </div> : null;
+
     return (
-      <div className="App">
-        {loadingIndicator}
+      <div className="container">
+        {header}
         {apiFailureIndicator}
         {voteComponent}
-        {questionsList}
+        <div className="row">
+          {questionsList}
+        </div>
+        {loadingIndicator}
       </div>
     );
   }
