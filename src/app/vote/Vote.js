@@ -30,7 +30,7 @@ class Vote extends Component {
 
     const choicesList = this.choices.map(choice =>
       <div className="list-group-item list-group-item-action" key={choice.url}>
-        <span className="choice">{choice.choice}</span>
+        <span className="choice">{choice.choice}</span><br/>
         <span className="details"> (Total: {choice.votes} |
           Share: {totalVotes ? ((choice.votes/totalVotes)*100).toFixed(0) : 0}%)</span>
         <button

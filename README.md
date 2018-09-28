@@ -1,7 +1,8 @@
 ![alt text](https://s3.eu-central-1.amazonaws.com/public-201809/thePollinator.png)
 
 # The Pollinator
-Code Challenge based on the [polls api](https://pollsapi.docs.apiary.io/#) by Apiary.
+Code Challenge based on the [polls api](https://pollsapi.docs.apiary.io/#) by Apiary.  
+See preview [here](http://pollinator.maxstralka.com)!
 
 ## Quick start
 ```sh
