@@ -17,8 +17,6 @@ class Question extends Component {
   }
 
   handleCallback() {
-    // Id of question is not directly available in the
-    // model provided and needs to be extracted from the url
     const id = this.url.split('/').pop(); 
     this.callback(id);
   }

@@ -152,7 +152,7 @@ class App extends Component {
     // Header
     const header = !vote.visible ? <div className="header">
       <h1>The Pollinator</h1>
-      <p>It's voting time</p>
+      <p>{'It\'s voting time'}</p>
     </div> : null;
 
     return (

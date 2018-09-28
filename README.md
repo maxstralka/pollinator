@@ -5,6 +5,8 @@ Code Challenge based on the [polls api](https://pollsapi.docs.apiary.io/#) by Ap
 
 ## Quick start
 ```sh
+git clone https://github.com/maxstralka/pollinator.git
+cd pollinator
 npm install
 npm start
 ```

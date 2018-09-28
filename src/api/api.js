@@ -37,7 +37,7 @@ class Api {
 
   /**
    * Get collection of questions based on page (GET)
-   * @param {number} page - The page of questions to return Example
+   * @param {number} page - The page of questions to return
    */
   getQuestionsCollection(page, callback) {
     request

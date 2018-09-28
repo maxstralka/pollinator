@@ -32,7 +32,7 @@ class Vote extends Component {
       <div className="list-group-item list-group-item-action" key={choice.url}>
         <span className="choice">{choice.choice}</span>
         <span className="details"> (Total: {choice.votes} |
-          Share: {((choice.votes/totalVotes)*100).toFixed(0)}%)</span>
+          Share: {totalVotes ? ((choice.votes/totalVotes)*100).toFixed(0) : 0}%)</span>
         <button
           className="btn btn-warning float-right"
           id="vote"
